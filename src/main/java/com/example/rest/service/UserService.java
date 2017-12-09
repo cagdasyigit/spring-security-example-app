@@ -1,0 +1,72 @@
+package com.example.rest.service;
+
+import com.example.rest.dao.UserDao;
+import com.example.rest.model.User;
+import com.example.rest.model.UserToken;
+import com.example.rest.security.TokenHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.MediaType;
+import org.springframework.mobile.device.Device;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@CrossOrigin
+@EnableAutoConfiguration
+@RequestMapping("/user")
+public class UserService {
+
+	@Autowired
+    UserDao userDao;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private TokenHandler tokenHandler;
+
+	public UserService() {
+		super();
+	}
+
+	// http://localhost:8080/user/login
+	@RequestMapping(value = "login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public UserToken login(@RequestBody User user, Device device) {
+		UserToken userToken = new UserToken();
+
+        // Check user credentials
+        Authentication authentication = this.authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                user.getUsername(),
+                user.getPassword()
+            )
+        );
+
+        // Authenticate user in spring security context
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        
+        // Generate token
+        User userDetails = userDao.getUser(user.getUsername());
+        String tokenKey = this.tokenHandler.generateToken(userDetails, device);
+        
+        // Build response
+        userToken.setUser(userDetails);
+        userToken.setTokenKey(tokenKey);
+        userToken.setStatus("A");
+        
+        // Save token
+        userDao.saveUserToken(userToken);
+
+		return userToken;
+	}
+	
+	@RequestMapping(value="testAuth", method=RequestMethod.GET)
+	public String test(){
+		return "It works!";
+	}
+
+}

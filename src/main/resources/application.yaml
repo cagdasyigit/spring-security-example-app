@@ -1,0 +1,19 @@
+spring:
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/springsecuritydb
+      username: cagdas
+      password: kingkong1
+      platform: mysql
+
+app:
+    token:
+        secret: exampleAppSecret
+        tokenHeader: AuthenticationToken
+        expiration: 604800
+        checkDbPerRequest: false        
