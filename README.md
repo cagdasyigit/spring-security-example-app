@@ -4,11 +4,10 @@ A custom security implementation of  spring boot framework
 #### Which includes:
 
  - Token control; generated based on user information, can be checked on per request on the fly or from db, just with a single configuration
- - Authentication of a basic UserDetails implementation object (class User implements UserDetails) by a ready-to-go "/user/login" rest service!.
+ - Authentication of a basic UserDetails implementation object (class User implements UserDetails) by a ready-to-go "/user/login" and "/user/logout" rest service!.
  - User role permission check for each rest service path (also methods can be checked just calling some annotations on the top of the methods, see security configuration for details below)
 
 #### For The Future:
- - Logout service will be ready to use
  - Method security example will be added
  - A ui form will be demonstrated
  - User password will be encrypted
