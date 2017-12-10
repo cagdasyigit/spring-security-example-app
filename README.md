@@ -4,15 +4,14 @@ A custom security implementation of  spring boot framework
 #### Which includes:
 
  - Token control; generated based on user information, can be checked on per request on the fly or from db, just with a single configuration
- - Authentication of a basic UserDetails implementation object (class User implements UserDetails) by a ready-to-go "/user/login" rest service!.
+ - Authentication of a basic UserDetails implementation object (class User implements UserDetails) by a ready-to-go "/user/login" and "/user/logout" rest service!.
  - User role permission check for each rest service path (also methods can be checked just calling some annotations on the top of the methods, see security configuration for details below)
+ - Configurable cors header (application.yaml)
 
 #### For The Future:
- - Logout service will be ready to use
  - Method security example will be added
  - A ui form will be demonstrated
  - User password will be encrypted
- - Cors will be configurable
 
 
 ### **Get Started**
@@ -84,16 +83,15 @@ For example "/user/login" and "/user/logout" paths are permitted for all request
 	    }
     }
 
-Secured paths controlled by a filter which named "AuthorizationFilter". This class checks "AuthenticationToken" and "username" request headers. If the information is correct, then the filter is authenticating request, and resuming filter chain, request will be authenticated and continue to process. See "doFilter" method in "AuthorizationFilter" class for further information.
+Secured paths controlled by a filter which named "AuthorizationFilter". This class checks "AuthenticationToken" request header. If the token is valid for user, then the filter is authenticating request, and resuming filter chain, request will be authenticated and continue to process. See "doFilter" method in "AuthorizationFilter" class for further information.
 
 "AuthorizationFilter" class will check the token on the fly or from db per request. This can be configured in **application.yaml** file, **checkDbPerRequest** flag should be true for checking token from db.
 
 ### **Debugging**
 I recommend use **Postman** or something equivalent application for sending requests.
-For authenticated rest service paths, set request headers "username" and "AuthenticationToken". Token header must be current genereated token in "user_token" table. Also you need to set "Content-Type" header. For example:
+For authenticated rest service paths, set request header "AuthenticationToken". Token header must be current genereated token in "user_token" table. Also you need to set "Content-Type" header. For example:
 
     Content-Type: application/json
-    username: cagdas
     AuthenticationToken: 0a998HhF0m43Fv4JAsdWeD
 
 Choose your request type which path you want to test, choose raw type in body section and write down a request body. If your service consumes json then write something like:
