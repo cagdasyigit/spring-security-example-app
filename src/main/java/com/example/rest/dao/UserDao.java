@@ -4,6 +4,7 @@ import com.example.rest.model.User;
 import com.example.rest.model.UserToken;
 import com.example.rest.repositories.UserRepository;
 import com.example.rest.repositories.UserTokenRepository;
+import com.example.rest.utils.Constants;
 
 import java.util.Date;
 
@@ -32,7 +33,7 @@ public class UserDao {
 	}
 	
 	public boolean checkUserToken(String token, String username) {
-		UserToken userToken = userTokenRepository.checkUserToken(token, username);
+		UserToken userToken = userTokenRepository.checkUserToken(token, username, Constants.UsetTokenStatus.ACTIVE);
 		
 		if (userToken != null) {
 			return true;
@@ -53,6 +54,12 @@ public class UserDao {
 	
 	public UserToken getUserTokenByTokenKey(String tokenKey) {
 		return userTokenRepository.findUserTokenByTokenKey(tokenKey);
+	}
+	
+	public void deactivateUserToken(User user){
+		UserToken userToken = userTokenRepository.findUserTokenByUser(user);
+		userToken.setStatus(Constants.UsetTokenStatus.DEACTIVE);
+		userTokenRepository.save(userToken);
 	}
 
 }

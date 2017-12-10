@@ -20,7 +20,7 @@ public class UserToken {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "token_id")
-	private int tokenId;
+	private long tokenId;
 	
 	@Column(name = "token_key", unique = true)
 	private String tokenKey;
@@ -40,11 +40,11 @@ public class UserToken {
 	
 	public UserToken() {}
 
-	public int getTokenId() {
+	public long getTokenId() {
 		return tokenId;
 	}
 
-	public void setTokenId(int tokenId) {
+	public void setTokenId(long tokenId) {
 		this.tokenId = tokenId;
 	}
 
