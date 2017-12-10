@@ -46,7 +46,7 @@ public class AuthorizationFilter extends UsernamePasswordAuthenticationFilter {
 		
 		// Set Headers & Allow All Origins
 		res.addHeader("Access-Control-Allow-Headers",
-                "Access-Control-Allow-Origin, AuthenticationToken, username, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+                "Access-Control-Allow-Origin, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, " + tokenHeader);
         if (res.getHeader("Access-Control-Allow-Origin") == null)
             res.addHeader("Access-Control-Allow-Origin", cors);
         
