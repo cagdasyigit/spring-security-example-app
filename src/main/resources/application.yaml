@@ -16,4 +16,6 @@ app:
         secret: exampleAppSecret
         tokenHeader: AuthenticationToken
         expiration: 604800
-        checkDbPerRequest: false        
+        checkDbPerRequest: false       
+    filter:
+        cors: \* 

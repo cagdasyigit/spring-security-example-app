@@ -57,7 +57,7 @@ public class UserDao {
 	}
 	
 	public void deactivateUserToken(User user){
-		UserToken userToken = userTokenRepository.findUserTokenByUser(user);
+		UserToken userToken = userTokenRepository.findUserTokenByUsername(user.getUsername(), Constants.UsetTokenStatus.ACTIVE);
 		userToken.setStatus(Constants.UsetTokenStatus.DEACTIVE);
 		userTokenRepository.save(userToken);
 	}
