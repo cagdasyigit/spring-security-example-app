@@ -71,7 +71,7 @@ public class UserService {
 		return userToken;
 	}
 	
-	@RequestMapping(value = "logout", method = RequestMethod.POST, 
+	@RequestMapping(value = "/logout", method = RequestMethod.POST, 
 			produces = MediaType.APPLICATION_JSON_VALUE, 
 			consumes = MediaType.APPLICATION_JSON_VALUE)
 	private boolean logout(){
@@ -80,7 +80,7 @@ public class UserService {
 		return true;
 	}
 	
-	@RequestMapping(value="testAuth", method=RequestMethod.GET)
+	@RequestMapping(value="/testAuth", method=RequestMethod.GET)
 	public String test(){
 		return "It works!";
 	}
