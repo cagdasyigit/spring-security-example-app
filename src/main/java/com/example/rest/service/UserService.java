@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserService {
 
-	@Autowired
+    @Autowired
     UserDao userDao;
 	
-	@Autowired
-	AuthenticationManager authenticationManager;
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @Autowired
     TokenHandler tokenHandler;
@@ -39,7 +39,7 @@ public class UserService {
 		super();
 	}
 
-	@RequestMapping(value = "login", method = RequestMethod.POST, 
+	@RequestMapping(value = "/login", method = RequestMethod.POST, 
 			produces = MediaType.APPLICATION_JSON_VALUE, 
 			consumes = MediaType.APPLICATION_JSON_VALUE)
 	public UserToken login(@RequestBody User user, Device device) {
