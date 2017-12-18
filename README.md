@@ -12,7 +12,8 @@ A custom security implementation of  spring boot framework
  - Method security example will be added
  - A ui form will be demonstrated
  - User password will be encrypted
-
+ - Register service will be implemented
+ 
 
 ### **Get Started**
 
@@ -88,11 +89,10 @@ Secured paths controlled by a filter which named "AuthorizationFilter". This cla
 "AuthorizationFilter" class will check the token on the fly or from db per request. This can be configured in **application.yaml** file, **checkDbPerRequest** flag should be true for checking token from db.
 
 ### **Debugging**
-I recommend use **Postman** or something equivalent application for sending requests.
-For authenticated rest service paths, set request header "AuthenticationToken". Token header must be current genereated token in "user_token" table. Also you need to set "Content-Type" header. For example:
+I recommend use **Postman** or something equivalent application for sending requests. After adding a user in your database first call "/login" service and get a generated token. For authenticated rest service paths, set request header "AuthenticationToken". Token header must be current genereated token in "user_token" table. Also you need to set "Content-Type" header.  For example:
 
     Content-Type: application/json
-    AuthenticationToken: 0a998HhF0m43Fv4JAsdWeD
+    AuthenticationToken: 0a998HhF0m43Fv4JAsdWeD (This is not a real generated token)
 
 Choose your request type which path you want to test, choose raw type in body section and write down a request body. If your service consumes json then write something like:
 
